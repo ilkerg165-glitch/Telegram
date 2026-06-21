@@ -3,107 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T20 - Telegram Hesap Açma</title>
+    <title>T20 HUB | Hack Tools</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0a; color: #fff; font-family: 'Courier New', monospace; }
-        .header { background: #1a1a2e; padding: 20px; text-align: center; border-bottom: 3px solid #0088cc; }
-        .header h1 { color: #0088cc; }
-        .container { max-width: 450px; margin: 15px auto; padding: 10px; }
-        .kutu { background: #111; border: 2px solid #222; padding: 20px; margin: 10px 0; }
-        .kutu h3 { color: #0088cc; margin-bottom: 10px; }
-        .kutu button {
-            width: 100%; padding: 14px; background: #0088cc; color: #fff;
-            border: none; font-weight: bold; font-size: 16px; cursor: pointer;
-            font-family: 'Courier New', monospace; margin: 5px 0;
+
+        :root {
+            --bg: #0a0b0f;
+            --card: #0f1015;
+            --border: #1a1c23;
+            --g: #00ff41;
+            --r: #ff0040;
+            --b: #00d4ff;
+            --p: #b400ff;
+            --y: #ffcc00;
+            --text: #cdd6f4;
+            --sub: #6c7086;
         }
-        .kutu button:hover { background: #00a0e0; }
-        .kutu input {
-            width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333;
-            color: #fff; font-family: 'Courier New', monospace; margin: 5px 0;
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Fira Code', monospace;
+            min-height: 100vh;
         }
-        .sonuc {
-            background: #0a0a0a; border: 2px solid #00ff00; padding: 15px;
-            margin: 10px 0; display: none; word-break: break-all;
+
+        /* PARTICLES */
+        .particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
         }
-        .sonuc h3 { color: #00ff00; }
-        .sonuc .num { color: #00ff00; font-size: 20px; margin: 8px 0; }
-        .footer { text-align: center; padding: 30px; color: #555; font-size: 11px; }
+        .particle {
+            position: absolute;
+            color: var(--g);
+            font-size: 12px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* SCANLINE */
+        .scanline {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,255,65,0.02) 0px, rgba(0,255,65,0.02) 1px, transparent 1px, transparent 3px);
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* NAV */
+        .nav {
+            background: rgba(10,11,15,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav .brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--g);
+            text-shadow: 0 0 20px rgba(0,255,65,0.5);
+        }
+        .nav .brand span { color: #fff; }
+        .nav .menu { display: flex; gap: 25px; }
+        .nav .menu a {
+            color: var(--sub);
+            text-decoration: none;
+            font-size: 12px;
+            transition: .3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav .menu a:hover { color: var(--g); }
+        .nav .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--g);
+        }
+        .nav .status .dot {
+            width: 8px; height: 8px;
+            background: var(--g);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,65,0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(0,255,65,0); }
+        }
+
+        /* CONTAINER */
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 50px 0 30px;
+        }
+        .hero .version {
+            display: inline-block;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: var(--g);
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .hero h1 .hl { color: var(--g); }
+        .hero p { color: var(--sub); font-size: 13px; margin: 15px 0 25px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 1px solid;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: .3s;
+        }
+        .btn-g { border-color: var(--g); color: var(--g); }
+        .btn-g:hover { background: var(--g); color: #000; box-shadow: 0 0 30px rgba(0,255,65,0.4); }
+        .btn-r { border-color: var(--r); color: var(--r); }
+        .btn-r:hover { background: var(--r); color: #fff; box-shadow: 0 0 30px rgba(255,0,64,0.4); }
+        .btn-b { border-color: var(--b); color: var(--b); }
+        .btn-p { border-color: var(--p); color: var(--p); }
+
+        /* TOOLS */
+        .section-title {
+            font-size: 18px;
+            margin: 50px 0 20px;
+            color: var(--g);
+        }
+        .section-title::before { content: '> '; }
+
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .tool {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: .3s;
+            text-decoration: none;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+        }
+        .tool::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: transparent;
+            transition: .3s;
+        }
+        .tool:hover::before { background: var(--g); box-shadow: 0 0 20px var(--g); }
+        .tool:hover { border-color: var(--g); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .tool .icon { font-size: 45px; margin-bottom: 12px; }
+        .tool .name { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+        .tool .desc { font-size: 10px; color: var(--sub); line-height: 1.5; }
+        .tool .tag {
+            position: absolute;
+            top: 10px; right: 10px;
+            font-size: 9px;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        .tag-new { background: var(--g); color: #000; }
+        .tag-hot { background: var(--r); color: #fff; }
+        .tag-pro { background: var(--p); color: #fff; }
+
+        /* TERMINAL */
+        .term {
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+        .term .t-green { color: var(--g); }
+        .term .t-red { color: var(--r); }
+        .term .t-blue { color: var(--b); }
+        .term .t-yellow { color: var(--y); }
+        .term .t-purple { color: var(--p); }
+
+        /* PRICING */
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .plan {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 30px 20px;
+            text-align: center;
+            transition: .3s;
+        }
+        .plan:hover { border-color: var(--g); }
+        .plan.featured { border-color: var(--p); box-shadow: 0 0 30px rgba(180,0,255,0.2); }
+        .plan .pname { font-size: 14px; font-weight: 600; margin-bottom: 15px; color: #fff; }
+        .plan .price { font-size: 32px; font-weight: 700; color: var(--g); }
+        .plan .price span { font-size: 14px; color: var(--sub); }
+        .plan ul { list-style: none; margin: 20px 0; }
+        .plan ul li { font-size: 11px; color: var(--sub); padding: 6px 0; }
+        .plan ul li::before { content: '✓ '; color: var(--g); }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--sub);
+            font-size: 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .tools { grid-template-columns: 1fr 1fr; }
+            .pricing { grid-template-columns: 1fr; }
+            .nav .menu { gap: 12px; }
+            .nav .menu a { font-size: 10px; }
+            .hero h1 { font-size: 28px; }
+        }
+        @media (max-width: 450px) {
+            .tools { grid-template-columns: 1fr; }
+            .nav { flex-direction: column; gap: 10px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1>📱 TELEGRAM HESAP AÇMA</h1>
-    <p>T20 TEAM - Ücretsiz Sanal Numara</p>
-</div>
+<div class="particles" id="particles"></div>
+<div class="scanline"></div>
+
+<nav class="nav">
+    <div class="brand">[T20<span>HUB</span>]</div>
+    <div class="menu">
+        <a href="#tools">Araçlar</a>
+        <a href="#pricing">Paketler</a>
+        <a href="#contact">İletişim</a>
+    </div>
+    <div class="status"><div class="dot"></div>ONLINE</div>
+</nav>
 
 <div class="container">
 
-    <div class="kutu">
-        <h3>🎯 BEDAVA SANAL NUMARA</h3>
-        <p style="color:#888;font-size:12px;margin-bottom:10px;">
-            Aşağıdaki servislerden bedava numara alıp Telegram hesabı açabilirsiniz.
-        </p>
-        <button onclick="window.open('https://www.textnow.com','_blank')">📞 TextNow (ABD Numarası)</button>
-        <button onclick="window.open('https://www.google.com/voice','_blank')">📞 Google Voice (ABD)</button>
-        <button onclick="window.open('https://www.textfree.us','_blank')">📞 TextFree</button>
-        <button onclick="window.open('https://www.talkatone.com','_blank')">📞 Talkatone</button>
+    <div class="hero">
+        <div class="version">v4.2.0 - STABLE</div>
+        <h1>En <span class="hl">Güçlü</span> Hack<br>Araçları Burada</h1>
+        <p>Telegram hesap açma, report tool, URL sniper, IP logger, DDoS panel, CC checker ve daha fazlası. Hepsi tek panelde.</p>
+        <a href="#tools" class="btn btn-g">🚀 Araçları Gör</a>
+        &nbsp;
+        <a href="#pricing" class="btn btn-r">💎 Premium Al</a>
     </div>
 
-    <div class="kutu">
-        <h3>⚡ HIZLI HESAP AÇ</h3>
-        <p style="color:#888;font-size:11px;margin-bottom:8px;">
-            Numaranı yaz, Telegram'dan kod gelecek. Hesabın hazır.
-        </p>
-        <input type="text" id="phone" placeholder="+90 555 123 45 67">
-        <button onclick="hesapAc()">🚀 HESAP AÇ</button>
-        <p id="msg" style="color:#00ff00;font-size:11px;margin-top:8px;"></p>
+    <!-- ARAÇLAR -->
+    <div class="section-title" id="tools">./tools --list-all</div>
+    <div class="tools">
+        <div class="tool" onclick="alert('Bu araç yakında eklenecek!')">
+            <div class="tag tag-hot">HOT</div>
+            <div class="icon">📱</div>
+            <div class="name">Hesap Açıcı</div>
+            <div class="desc">Sanal numara ile sınırsız Telegram hesabı oluştur</div>
+        </div>
+        <div class="tool" onclick="alert('Report tool hazır! Satın almak için WhatsApp.')">
+            <div class="tag tag-new">NEW</div>
+            <div class="icon">🚨</div>
+            <div class="name">Report Tool</div>
+            <div class="desc">Child Abuse | Spam | Violence toplu şikayet aracı</div>
+        </div>
+        <div class="tool" onclick="alert('URL Sniper için Telegram: @T20Team')">
+            <div class="tag tag-pro">PRO</div>
+            <div class="icon">🎯</div>
+            <div class="name">URL Sniper</div>
+            <div class="desc">Kullanıcı adı boşalınca anında kapma</div>
+        </div>
+        <div class="tool" onclick="alert('IP Logger satın almak için WhatsApp.')">
+            <div class="tag tag-hot">HOT</div>
+            <div class="icon">👁️</div>
+            <div class="name">IP Logger</div>
+            <div class="desc">Discord/Telegram IP + Token + Cihaz bilgisi çekme</div>
+        </div>
+        <div class="tool" onclick="alert('CC Checker yakında!')">
+            <div class="icon">💳</div>
+            <div class="name">CC Checker</div>
+            <div class="desc">Luhn + BIN + Gate kontrolü kredi kartı checker</div>
+        </div>
+        <div class="tool" onclick="alert('DDoS Panel yakında!')">
+            <div class="tag tag-new">NEW</div>
+            <div class="icon">💣</div>
+            <div class="name">DDoS Panel</div>
+            <div class="desc">Layer4 / Layer7 saldırı paneli</div>
+        </div>
+        <div class="tool" onclick="alert('Discord Tools yakında!')">
+            <div class="icon">💬</div>
+            <div class="name">Discord Tools</div>
+            <div class="desc">Token joiner, mass DM, webhook spammer</div>
+        </div>
+        <div class="tool" onclick="alert('Phishing kit için WhatsApp.')">
+            <div class="tag tag-pro">PRO</div>
+            <div class="icon">🎣</div>
+            <div class="name">Phishing Kit</div>
+            <div class="desc">Instagram, Facebook, Telegram fake login</div>
+        </div>
+        <div class="tool" onclick="alert('SQLi Scanner yakında!')">
+            <div class="icon">🗄️</div>
+            <div class="name">SQLi Scanner</div>
+            <div class="desc">Otomatik SQL injection tarayıcı</div>
+        </div>
     </div>
 
-    <div class="kutu">
-        <h3>📋 NASIL YAPILIR?</h3>
-        <p style="color:#888;font-size:11px;line-height:1.6;">
-            1. TextNow indir, kaydol<br>
-            2. Bedava ABD numarası al<br>
-            3. Telegram'ı aç, numarayı gir<br>
-            4. TextNow'dan gelen kodu Telegram'a gir<br>
-            5. Hesabın HAZIR! 🎉<br><br>
-            ⚠️ Aynı numarayı 2-3 hesap için kullanabilirsiniz.
-        </p>
+    <!-- TERMINAL -->
+    <div class="term">
+        <span class="t-green">root@t20</span>:<span class="t-blue">~/tools</span>$ ./status<br>
+        <span class="t-green">[OK]</span> Sistem aktif<br>
+        <span class="t-green">[OK]</span> 9 araç yüklendi<br>
+        <span class="t-yellow">[WARN]</span> 3 araç bakımda<br>
+        <span class="t-purple">[INFO]</span> Premium araçlar: Report, Sniper, Logger, Phishing<br>
+        <span class="t-green">root@t20</span>:<span class="t-blue">~/tools</span>$ <span class="t-green">_</span>
     </div>
 
-    <div class="kutu" style="border-color:#ff4444;">
-        <h3 style="color:#ff4444;">💎 HAZIR HESAP SATIN AL</h3>
-        <p style="color:#888;font-size:11px;margin-bottom:8px;">
-            Uğraşmak istemezsen hazır Telegram hesabı al.
-        </p>
-        <button onclick="satinAl()" style="background:#ff4444;">🛒 HESAP SATIN AL (₺5)</button>
+    <!-- PAKETLER -->
+    <div class="section-title" id="pricing">./pricing --list</div>
+    <div class="pricing">
+        <div class="plan">
+            <div class="pname">🥉 BAŞLANGIÇ</div>
+            <div class="price">₺29<span>/ay</span></div>
+            <ul>
+                <li>Hesap Açıcı</li>
+                <li>CC Checker</li>
+                <li>Discord Tools</li>
+                <li>7/24 Destek</li>
+            </ul>
+            <a href="https://wa.me/905442206782" class="btn btn-g">SATIN AL</a>
+        </div>
+        <div class="plan featured">
+            <div class="pname">💎 PREMIUM</div>
+            <div class="price">₺99<span>/ay</span></div>
+            <ul>
+                <li>Tüm Başlangıç</li>
+                <li>Report Tool</li>
+                <li>URL Sniper</li>
+                <li>IP Logger</li>
+                <li>Phishing Kit</li>
+                <li>Öncelikli Destek</li>
+            </ul>
+            <a href="https://wa.me/905442206782" class="btn btn-p">SATIN AL</a>
+        </div>
+        <div class="plan">
+            <div class="pname">👑 LIFETIME</div>
+            <div class="price">₺499<span>/tek</span></div>
+            <ul>
+                <li>TÜM ARAÇLAR</li>
+                <li>Ömür Boyu</li>
+                <li>Güncellemeler</li>
+                <li>VIP Destek</li>
+                <li>Özel Araç İstek</li>
+            </ul>
+            <a href="https://wa.me/905442206782" class="btn btn-r">SATIN AL</a>
+        </div>
     </div>
 
 </div>
 
-<div class="footer">
-    <p>© 2026 T20 TEAM</p>
-    <p>Telegram: @T20Team</p>
-</div>
+<footer>
+    <p>© 2026 T20 HUB. Tüm hakları saklıdır.</p>
+    <p>Telegram: @T20Team | WhatsApp: +905442206782</p>
+    <p style="color:var(--g);margin-top:5px;">[SİSTEM AKTİF]</p>
+</footer>
 
 <script>
-function hesapAc() {
-    var phone = document.getElementById('phone').value;
-    if(!phone) {
-        document.getElementById('msg').innerText = 'Numara girin!';
-        document.getElementById('msg').style.color = '#ff4444';
-        return;
-    }
-    document.getElementById('msg').innerText = 'Telegram uygulamasını açın, bu numarayla giriş yapın. Kod gelecek.';
-    document.getElementById('msg').style.color = '#00ff00';
+// PARTICLES
+const particles = document.getElementById('particles');
+const chars = '01アイウエオカキクケコ';
+for(let i=0;i<50;i++){
+    const p = document.createElement('span');
+    p.className = 'particle';
+    p.textContent = chars[Math.floor(Math.random()*chars.length)];
+    p.style.left = Math.random()*100+'%';
+    p.style.animationDuration = (Math.random()*10+5)+'s';
+    p.style.animationDelay = Math.random()*5+'s';
+    p.style.color = ['var(--g)','var(--b)','var(--p)'][Math.floor(Math.random()*3)];
+    particles.appendChild(p);
 }
 
-function satinAl() {
-    var msg = encodeURIComponent('Merhaba, hazır Telegram hesabı almak istiyorum.');
-    window.open('https://wa.me/905442206782?text=' + msg, '_blank');
-}
+// TOOL TIKLAMA
+document.querySelectorAll('.tool').forEach(tool => {
+    tool.addEventListener('click', function(){
+        const name = this.querySelector('.name').textContent;
+        const msg = encodeURIComponent(name + ' hakkında bilgi almak istiyorum.');
+        if(confirm(name + ' satın almak için WhatsApp\'a yönlendirilsin mi?')){
+            window.open('https://wa.me/905442206782?text=' + msg, '_blank');
+        }
+    });
+});
 </script>
 
 </body>
