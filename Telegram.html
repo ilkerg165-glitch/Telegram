@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T20 - Telegram Hesap Açma</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0a0a; color: #fff; font-family: 'Courier New', monospace; }
+        .header { background: #1a1a2e; padding: 20px; text-align: center; border-bottom: 3px solid #0088cc; }
+        .header h1 { color: #0088cc; }
+        .container { max-width: 450px; margin: 15px auto; padding: 10px; }
+        .kutu { background: #111; border: 2px solid #222; padding: 20px; margin: 10px 0; }
+        .kutu h3 { color: #0088cc; margin-bottom: 10px; }
+        .kutu button {
+            width: 100%; padding: 14px; background: #0088cc; color: #fff;
+            border: none; font-weight: bold; font-size: 16px; cursor: pointer;
+            font-family: 'Courier New', monospace; margin: 5px 0;
+        }
+        .kutu button:hover { background: #00a0e0; }
+        .kutu input {
+            width: 100%; padding: 12px; background: #0a0a0a; border: 1px solid #333;
+            color: #fff; font-family: 'Courier New', monospace; margin: 5px 0;
+        }
+        .sonuc {
+            background: #0a0a0a; border: 2px solid #00ff00; padding: 15px;
+            margin: 10px 0; display: none; word-break: break-all;
+        }
+        .sonuc h3 { color: #00ff00; }
+        .sonuc .num { color: #00ff00; font-size: 20px; margin: 8px 0; }
+        .footer { text-align: center; padding: 30px; color: #555; font-size: 11px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📱 TELEGRAM HESAP AÇMA</h1>
+    <p>T20 TEAM - Ücretsiz Sanal Numara</p>
+</div>
+
+<div class="container">
+
+    <div class="kutu">
+        <h3>🎯 BEDAVA SANAL NUMARA</h3>
+        <p style="color:#888;font-size:12px;margin-bottom:10px;">
+            Aşağıdaki servislerden bedava numara alıp Telegram hesabı açabilirsiniz.
+        </p>
+        <button onclick="window.open('https://www.textnow.com','_blank')">📞 TextNow (ABD Numarası)</button>
+        <button onclick="window.open('https://www.google.com/voice','_blank')">📞 Google Voice (ABD)</button>
+        <button onclick="window.open('https://www.textfree.us','_blank')">📞 TextFree</button>
+        <button onclick="window.open('https://www.talkatone.com','_blank')">📞 Talkatone</button>
+    </div>
+
+    <div class="kutu">
+        <h3>⚡ HIZLI HESAP AÇ</h3>
+        <p style="color:#888;font-size:11px;margin-bottom:8px;">
+            Numaranı yaz, Telegram'dan kod gelecek. Hesabın hazır.
+        </p>
+        <input type="text" id="phone" placeholder="+90 555 123 45 67">
+        <button onclick="hesapAc()">🚀 HESAP AÇ</button>
+        <p id="msg" style="color:#00ff00;font-size:11px;margin-top:8px;"></p>
+    </div>
+
+    <div class="kutu">
+        <h3>📋 NASIL YAPILIR?</h3>
+        <p style="color:#888;font-size:11px;line-height:1.6;">
+            1. TextNow indir, kaydol<br>
+            2. Bedava ABD numarası al<br>
+            3. Telegram'ı aç, numarayı gir<br>
+            4. TextNow'dan gelen kodu Telegram'a gir<br>
+            5. Hesabın HAZIR! 🎉<br><br>
+            ⚠️ Aynı numarayı 2-3 hesap için kullanabilirsiniz.
+        </p>
+    </div>
+
+    <div class="kutu" style="border-color:#ff4444;">
+        <h3 style="color:#ff4444;">💎 HAZIR HESAP SATIN AL</h3>
+        <p style="color:#888;font-size:11px;margin-bottom:8px;">
+            Uğraşmak istemezsen hazır Telegram hesabı al.
+        </p>
+        <button onclick="satinAl()" style="background:#ff4444;">🛒 HESAP SATIN AL (₺5)</button>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>© 2026 T20 TEAM</p>
+    <p>Telegram: @T20Team</p>
+</div>
+
+<script>
+function hesapAc() {
+    var phone = document.getElementById('phone').value;
+    if(!phone) {
+        document.getElementById('msg').innerText = 'Numara girin!';
+        document.getElementById('msg').style.color = '#ff4444';
+        return;
+    }
+    document.getElementById('msg').innerText = 'Telegram uygulamasını açın, bu numarayla giriş yapın. Kod gelecek.';
+    document.getElementById('msg').style.color = '#00ff00';
+}
+
+function satinAl() {
+    var msg = encodeURIComponent('Merhaba, hazır Telegram hesabı almak istiyorum.');
+    window.open('https://wa.me/905442206782?text=' + msg, '_blank');
+}
+</script>
+
+</body>
+</html>
